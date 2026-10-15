@@ -1128,3 +1128,582 @@ button { cursor: pointer; border: none; background: none; }
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; }
 }
+
+/* ==========================================================
+   17 视觉升级 · 2026-10-15
+   目标：去掉"AI 模板感"，向编辑部 / 产品官网的质感靠拢。
+   约束：不改 class 名、不改 DOM 结构与 JS，纯视觉层覆盖。
+   ========================================================== */
+
+/* ---------- 17.1 设计变量重定义 ---------- */
+:root {
+  /* 只保留一个强调色：深松绿。价格另用低饱和砖红，仅作价格信号 */
+  --brand: #0e7358;
+  --brand-dark: #0a5c46;
+  --brand-soft: #e7f1ec;
+  --accent: #b0451f;
+  --accent-soft: #f9ece6;
+
+  /* 暖纸底 + 近黑墨色，替代原来的冷灰 */
+  --bg: #f3f1ec;
+  --surface: #fffdfa;
+  --surface-2: #f7f5f0;
+  --text: #15191d;
+  --text-2: #4d5760;
+  --muted: #8c959c;
+  --border: #e3ded5;
+
+  --radius: 16px;
+  --radius-sm: 9px;
+  --shadow-1: 0 1px 1px rgba(21, 25, 29, .04), 0 2px 6px -3px rgba(21, 25, 29, .10);
+  --shadow-2: 0 24px 48px -28px rgba(21, 25, 29, .34);
+  --max: 1200px;
+
+  /* 分类底色改成低饱和"色纸"，不再用高饱和渐变 */
+  --cov-book: #dde5f0;
+  --cov-digital: #dfe7e3;
+  --cov-life: #f0e5de;
+  --cov-sport: #dfe9e2;
+  --cov-misc: #efe8d8;
+  --cov-default: #e8e6e0;
+}
+
+html[data-theme="dark"] {
+  --brand: #2fae86;
+  --brand-dark: #35bb90;
+  --brand-soft: #10261f;
+  --accent: #d9694a;
+  --accent-soft: #2a1a14;
+  --bg: #101315;
+  --surface: #171b1e;
+  --surface-2: #1d2226;
+  --text: #eceef0;
+  --text-2: #a8b0b6;
+  --muted: #7c858c;
+  --border: #262c31;
+  --cov-book: #232a35;
+  --cov-digital: #222a2b;
+  --cov-life: #2e2622;
+  --cov-sport: #212a25;
+  --cov-misc: #2d2921;
+  --cov-default: #24282b;
+}
+
+/* ---------- 17.2 字体与版面基础 ---------- */
+body {
+  font-family: "HarmonyOS Sans SC", "MiSans", "PingFang SC", "Source Han Sans SC",
+               "Microsoft YaHei", "Hiragino Sans GB", "Segoe UI", system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.72;
+  letter-spacing: .002em;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 { letter-spacing: -.012em; }
+
+p { text-wrap: pretty; }
+
+/* 极轻的纸感颗粒：压掉纯数字界面的"塑料感" */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: .035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.container { max-width: var(--max); }
+.page { padding: 40px 0 84px; }
+.section { margin-bottom: 74px; }
+
+/* ---------- 17.3 顶部公告条：改成安静的墨色条 ---------- */
+.notice {
+  background: var(--text);
+  color: var(--surface);
+  font-size: 12.5px;
+  letter-spacing: .01em;
+}
+.notice .notice-links { opacity: .72; }
+.notice .notice-links a:hover { color: var(--surface); }
+
+/* ---------- 17.4 头部导航 ---------- */
+.site-header {
+  background: color-mix(in srgb, var(--bg) 86%, transparent);
+  border-bottom: 1px solid var(--border);
+}
+
+.site-header .container { height: 66px; }
+
+.brand-logo {
+  border-radius: 8px;
+  background: var(--text);
+  color: var(--surface);
+  box-shadow: none;
+  font-weight: 600;
+}
+
+.main-nav a { font-size: 14px; border-radius: 6px; }
+.main-nav a:hover { background: transparent; color: var(--text); }
+
+.main-nav a.active {
+  background: transparent;
+  color: var(--text);
+  font-weight: 700;
+}
+
+.main-nav a.active::after {
+  content: "";
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 3px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--brand);
+}
+
+/* ---------- 17.5 按钮 ---------- */
+.btn { border-radius: 9px; font-weight: 600; }
+
+.btn-primary { background: var(--brand); box-shadow: none; }
+.btn-primary:hover { background: var(--brand-dark); transform: translateY(-1px); }
+
+.btn-ghost { background: transparent; border-color: var(--border); }
+.btn-ghost:hover { border-color: var(--text); color: var(--text); }
+
+.btn-soft { background: var(--brand-soft); }
+.btn-lg { padding: 13px 24px; border-radius: 10px; letter-spacing: .01em; }
+
+/* ---------- 17.6 首页首屏 ---------- */
+.hero {
+  grid-template-columns: 1.14fr .86fr;
+  gap: 60px;
+  align-items: start;
+  padding: 58px 0 48px;
+}
+
+.hero h1 {
+  font-size: clamp(34px, 3.9vw, 52px);
+  line-height: 1.14;
+  letter-spacing: -.028em;
+  font-weight: 800;
+  margin-bottom: 20px;
+  text-wrap: balance;
+}
+
+.hero h1 .hl {
+  color: var(--brand-dark);
+  background: linear-gradient(transparent 66%, var(--brand-soft) 0);
+  padding: 0 4px;
+}
+
+/* 标题上方的短标签，用来交代场景 */
+.eyebrow {
+  font-size: 12.5px;
+  letter-spacing: .14em;
+  color: var(--muted);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.eyebrow::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+  max-width: 120px;
+}
+
+.hero .lead {
+  font-size: 16px;
+  line-height: 1.82;
+  max-width: 43ch;
+  margin-bottom: 28px;
+}
+
+.hero-actions { gap: 10px; margin-bottom: 32px; }
+
+.stats {
+  gap: 46px;
+  padding-top: 26px;
+  border-top: 1px solid var(--border);
+}
+
+.stats .num {
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -.025em;
+  color: var(--text);
+}
+
+.stats .label { font-size: 12.5px; letter-spacing: .01em; }
+
+/* 轮播：去掉渐变和柔光，改用沉稳的纯色 */
+.carousel { border-radius: 18px; }
+.slides { transition: transform .6s var(--ease); }
+.slide { aspect-ratio: 5 / 4; padding: 34px; }
+.slide::before { display: none; }
+
+.s1 { background: #0d6a52; }
+.s2 { background: #2b3940; }
+.s3 { background: #8a5a3d; }
+
+.slide .tag {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, .42);
+  backdrop-filter: none;
+  font-size: 12px;
+  letter-spacing: .04em;
+}
+
+.slide h3 { font-size: 26px; letter-spacing: -.02em; margin-bottom: 8px; }
+.slide p { font-size: 14px; opacity: .86; max-width: 34ch; }
+.slide .btn { border-radius: 8px; font-weight: 600; }
+
+.carousel-btn { width: 36px; height: 36px; background: rgba(255, 255, 255, .9); }
+
+/* ---------- 17.7 区块标题：去掉重复的绿色竖条，改用细分隔线 ---------- */
+.section-head {
+  align-items: baseline;
+  padding-top: 22px;
+  border-top: 1px solid var(--border);
+  margin-bottom: 24px;
+}
+
+.section-head h2 { font-size: 25px; font-weight: 700; letter-spacing: -.02em; }
+.section-head h2::before { display: none; }
+.section-head .more { font-size: 13.5px; }
+.section-head .more:hover { color: var(--text); }
+
+/* ---------- 17.8 分类入口：打破五等分，用 6 栏非对称网格 ---------- */
+#catGrid {
+  grid-template-columns: repeat(6, 1fr);
+  gap: 12px;
+}
+
+#catGrid .cat-card:nth-child(1),
+#catGrid .cat-card:nth-child(2) {
+  grid-column: span 3;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto;
+  column-gap: 18px;
+  row-gap: 2px;
+  align-content: center;
+  justify-items: start;
+  text-align: left;
+  padding: 30px 26px;
+}
+
+#catGrid .cat-card:nth-child(1) .emoji,
+#catGrid .cat-card:nth-child(2) .emoji { grid-row: 1 / span 2; }
+
+#catGrid .cat-card:nth-child(n+3) { grid-column: span 2; }
+
+#catGrid .cat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: none;
+  gap: 10px;
+}
+
+#catGrid .cat-card:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--brand) 45%, var(--border));
+  box-shadow: var(--shadow-1);
+}
+
+/* 用线性图标替换 emoji */
+#catGrid .cat-card .emoji,
+.p-cover .emoji,
+.detail-cover .emoji {
+  display: grid;
+  place-items: center;
+  font-size: 0;
+  line-height: 0;
+  color: var(--text-2);
+}
+
+#catGrid .cat-card .emoji::before,
+.p-cover .emoji::before,
+.detail-cover .emoji::before {
+  content: "";
+  display: block;
+  background-color: currentColor;
+  -webkit-mask-image: var(--ico);
+  mask-image: var(--ico);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  transition: color .2s;
+}
+
+#catGrid .cat-card .emoji::before { width: 32px; height: 32px; }
+#catGrid .cat-card:nth-child(1) .emoji::before,
+#catGrid .cat-card:nth-child(2) .emoji::before { width: 40px; height: 40px; }
+#catGrid .cat-card:hover .emoji { color: var(--brand); }
+
+.p-cover .emoji::before { width: 64px; height: 64px; }
+.detail-cover .emoji::before { width: 168px; height: 168px; }
+
+/* 五个分类的图标（24 网格线性图标，用 mask 描边） */
+#catGrid .cat-card[href*="cat=book"],
+.p-cover.cov-book,
+.detail-cover.cov-book {
+  --ico: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 5.2A2.2 2.2 0 0 1 6.2 3H20v15.4H6.2A2.2 2.2 0 0 0 4 20.6z'/%3E%3Cpath d='M8 7.6h8M8 11h5'/%3E%3C/svg%3E");
+}
+
+#catGrid .cat-card[href*="cat=digital"],
+.p-cover.cov-digital,
+.detail-cover.cov-digital {
+  --ico: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='4' width='18' height='12.5' rx='2'/%3E%3Cpath d='M9 20h6M12 16.5V20'/%3E%3C/svg%3E");
+}
+
+#catGrid .cat-card[href*="cat=life"],
+.p-cover.cov-life,
+.detail-cover.cov-life {
+  --ico: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5.6 7.5h12.8l-1.1 12.6a1.6 1.6 0 0 1-1.6 1.4H8.3a1.6 1.6 0 0 1-1.6-1.4z'/%3E%3Cpath d='M9 7.5V6a3 3 0 0 1 6 0v1.5'/%3E%3C/svg%3E");
+}
+
+#catGrid .cat-card[href*="cat=sport"],
+.p-cover.cov-sport,
+.detail-cover.cov-sport {
+  --ico: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M12 3v18M3 12h18'/%3E%3C/svg%3E");
+}
+
+#catGrid .cat-card[href*="cat=misc"],
+.p-cover.cov-misc,
+.detail-cover.cov-misc {
+  --ico: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='4' y='9.5' width='16' height='10.5' rx='1.5'/%3E%3Cpath d='M3 9.5h18M12 9.5V20'/%3E%3Cpath d='M12 9.5S10.4 4 8.1 4a2.1 2.1 0 0 0 0 5.5M12 9.5S13.6 4 15.9 4a2.1 2.1 0 0 1 0 5.5'/%3E%3C/svg%3E");
+}
+
+/* 静态卡片（首页"三步"、关于页功能表）：去掉 emoji 和卡片壳，做成编辑部式文字栏 */
+.cat-card .emoji { display: none; }
+
+.cat-grid:not(#catGrid) {
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px 34px;
+}
+
+.cat-grid:not(#catGrid) .cat-card {
+  align-items: flex-start;
+  text-align: left;
+  gap: 6px;
+  padding: 18px 0 0;
+  background: transparent;
+  border: 0;
+  border-top: 1px solid var(--border);
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.cat-grid:not(#catGrid) .cat-card:hover { transform: none; border-color: var(--text); }
+
+.cat-grid:not(#catGrid) .cat-card .name { font-size: 15.5px; }
+.cat-grid:not(#catGrid) .cat-card .count { font-size: 13px; line-height: 1.7; }
+
+/* ---------- 17.9 商品卡片 ---------- */
+.card-grid { grid-template-columns: repeat(auto-fill, minmax(228px, 1fr)); gap: 20px; }
+
+.p-card {
+  border: 0;
+  border-radius: 14px;
+  box-shadow: 0 1px 2px rgba(21, 25, 29, .05);
+}
+
+.p-card:hover {
+  transform: translateY(-4px);
+  border-color: transparent;
+  box-shadow: 0 22px 36px -24px rgba(21, 25, 29, .45);
+}
+
+.p-cover { box-shadow: inset 0 0 0 1px rgba(21, 25, 29, .06); }
+.p-cover::after { display: none; }
+.p-card:hover .p-cover .emoji { transform: none; }
+
+.p-cover .emoji { transition: transform .35s var(--ease); }
+.p-card:hover .p-cover .emoji::before { transform: scale(1.06); }
+
+.p-cover .cond {
+  background: rgba(255, 253, 250, .9);
+  color: var(--text);
+  border-radius: 5px;
+  font-weight: 600;
+  letter-spacing: .02em;
+  backdrop-filter: blur(6px);
+}
+
+.fav-btn {
+  border-radius: 8px;
+  background: rgba(255, 253, 250, .86);
+  backdrop-filter: blur(6px);
+}
+
+/* 卡片右上角的收藏按钮：文字是 ♥ / ♡，统一换成同款心形图标 */
+.fav-btn { font-size: 0; color: var(--text-2); }
+
+.fav-btn::before {
+  content: "";
+  width: 15px;
+  height: 15px;
+  background-color: currentColor;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.7' stroke-linejoin='round'%3E%3Cpath d='M12 20.5S4.4 15.7 4.4 10.6A4.4 4.4 0 0 1 12 7.8a4.4 4.4 0 0 1 7.6 2.8c0 5.1-7.6 9.9-7.6 9.9z'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.7' stroke-linejoin='round'%3E%3Cpath d='M12 20.5S4.4 15.7 4.4 10.6A4.4 4.4 0 0 1 12 7.8a4.4 4.4 0 0 1 7.6 2.8c0 5.1-7.6 9.9-7.6 9.9z'/%3E%3C/svg%3E");
+}
+
+.fav-btn.on { color: #c8433a; }
+
+.fav-btn.on::before {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23000'%3E%3Cpath d='M12 20.5S4.4 15.7 4.4 10.6A4.4 4.4 0 0 1 12 7.8a4.4 4.4 0 0 1 7.6 2.8c0 5.1-7.6 9.9-7.6 9.9z'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23000'%3E%3Cpath d='M12 20.5S4.4 15.7 4.4 10.6A4.4 4.4 0 0 1 12 7.8a4.4 4.4 0 0 1 7.6 2.8c0 5.1-7.6 9.9-7.6 9.9z'/%3E%3C/svg%3E");
+}
+
+.p-body { padding: 14px 15px 16px; gap: 8px; }
+.p-title { font-size: 14.5px; line-height: 1.5; letter-spacing: 0; }
+.price { font-size: 20px; letter-spacing: -.02em; }
+.badge { border-radius: 5px; font-size: 11.5px; letter-spacing: .01em; }
+
+/* 卖家名前面的小人图标（原来是 👤） */
+.p-seller::before {
+  content: "";
+  flex: 0 0 auto;
+  width: 12px;
+  height: 12px;
+  background-color: currentColor;
+  opacity: .75;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.9' stroke-linecap='round'%3E%3Ccircle cx='12' cy='8.2' r='3.6'/%3E%3Cpath d='M4.8 20.2a7.2 7.2 0 0 1 14.4 0'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.9' stroke-linecap='round'%3E%3Ccircle cx='12' cy='8.2' r='3.6'/%3E%3Cpath d='M4.8 20.2a7.2 7.2 0 0 1 14.4 0'/%3E%3C/svg%3E");
+}
+
+/* ---------- 17.10 工具栏 / 表单 / 详情（跟随新变量收敛） ---------- */
+.toolbar, .form-card, .desc-box, .seller-card, .spec-list li, .detail-cover {
+  border-radius: var(--radius);
+  box-shadow: none;
+}
+
+.chip { border-radius: 8px; }
+.chip.active { box-shadow: none; }
+.chip:hover { border-color: var(--text); color: var(--text); }
+
+.search-box { border-radius: 8px; }
+.search-box:focus-within { box-shadow: 0 0 0 3px var(--brand-soft); }
+
+.price-box { border-radius: var(--radius); }
+.price-box .price { font-size: 30px; letter-spacing: -.025em; }
+
+.empty { border-radius: var(--radius); }
+.modal { border-radius: 16px; }
+.contact-line { border-radius: 8px; }
+.toast { background: var(--text); border-radius: 8px; }
+
+/* ---------- 17.11 页脚 ---------- */
+.site-footer {
+  background: transparent;
+  border-top: 1px solid var(--border);
+  padding: 56px 0 30px;
+  margin-top: 40px;
+}
+
+.footer-grid h4 {
+  font-size: 12.5px;
+  letter-spacing: .09em;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.footer-grid a:hover { color: var(--text); }
+.footer-about .badge { border: 0; background: transparent; padding: 0; color: var(--muted); }
+
+/* ---------- 17.12 深色主题微调 ---------- */
+/* 搜索框、主题按钮里的 emoji 换成同款线性图标（按钮文字由 JS 写入，用遮罩盖住） */
+.search-box::before {
+  content: "";
+  flex: 0 0 auto;
+  width: 15px;
+  height: 15px;
+  background-color: var(--muted);
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.9' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='M20.2 20.2l-4.4-4.4'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.9' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='M20.2 20.2l-4.4-4.4'/%3E%3C/svg%3E");
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}
+
+.icon-btn.js-theme,
+.icon-btn.nav-toggle { font-size: 0; }
+
+.js-theme::before,
+.nav-toggle::before {
+  content: "";
+  width: 18px;
+  height: 18px;
+  background-color: var(--text-2);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20.5 14.6A8.6 8.6 0 0 1 9.4 3.5a8.6 8.6 0 1 0 11.1 11.1z'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20.5 14.6A8.6 8.6 0 0 1 9.4 3.5a8.6 8.6 0 1 0 11.1 11.1z'/%3E%3C/svg%3E");
+}
+
+/* 深色主题下，同一个按钮换成太阳，和原来 emoji 的语义保持一致 */
+html[data-theme="dark"] .js-theme::before {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round'%3E%3Ccircle cx='12' cy='12' r='4.2'/%3E%3Cpath d='M12 2.6v2.1M12 19.3v2.1M2.6 12h2.1M19.3 12h2.1M5.3 5.3l1.5 1.5M17.2 17.2l1.5 1.5M18.7 5.3l-1.5 1.5M6.8 17.2l-1.5 1.5'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round'%3E%3Ccircle cx='12' cy='12' r='4.2'/%3E%3Cpath d='M12 2.6v2.1M12 19.3v2.1M2.6 12h2.1M19.3 12h2.1M5.3 5.3l1.5 1.5M17.2 17.2l1.5 1.5M18.7 5.3l-1.5 1.5M6.8 17.2l-1.5 1.5'/%3E%3C/svg%3E");
+}
+
+html[data-theme="dark"] .p-card { box-shadow: 0 1px 2px rgba(0, 0, 0, .5); }
+html[data-theme="dark"] .p-cover { box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .05); }
+html[data-theme="dark"] .p-cover .cond { background: rgba(23, 27, 30, .86); color: var(--text); }
+html[data-theme="dark"] .fav-btn { background: rgba(23, 27, 30, .8); }
+html[data-theme="dark"] .notice { background: #0a0d0f; color: var(--text); }
+html[data-theme="dark"] .brand-logo { background: var(--surface-2); color: var(--text); }
+
+/* ---------- 17.13 响应式（沿用原有断点，补齐新规则） ---------- */
+@media (max-width: 980px) {
+  .hero { grid-template-columns: 1fr; gap: 36px; padding-top: 34px; }
+  .hero h1 { font-size: 34px; }
+  .stats { gap: 32px; }
+  #catGrid { grid-template-columns: repeat(2, 1fr); }
+  #catGrid .cat-card,
+  #catGrid .cat-card:nth-child(1),
+  #catGrid .cat-card:nth-child(2),
+  #catGrid .cat-card:nth-child(n+3) { grid-column: span 1; padding: 22px 16px; }
+  .cat-grid:not(#catGrid) { grid-template-columns: repeat(2, 1fr); }
+  .section { margin-bottom: 56px; }
+}
+
+@media (max-width: 620px) {
+  .section-head { padding-top: 16px; }
+  .section-head h2 { font-size: 20px; }
+  .hero h1 { font-size: 29px; }
+  .hero .lead { font-size: 15px; }
+  .stats { gap: 20px; padding-top: 20px; }
+  .stats .num { font-size: 22px; }
+  .cat-grid:not(#catGrid) { grid-template-columns: 1fr; gap: 22px; }
+  .p-cover .emoji::before { width: 44px; height: 44px; }
+}

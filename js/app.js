@@ -189,7 +189,7 @@
           '</div>' +
           '<div class="p-foot">' +
             '<span class="price"><i>¥</i>' + esc(p.price) + '</span>' +
-            '<span class="p-seller">👤 ' + esc(p.seller.name) + '</span>' +
+        '<span class="p-seller">' + esc(p.seller.name) + '</span>' +
           '</div>' +
         '</div>' +
         '<a class="card-link" href="detail.html?id=' + p.id + '" aria-label="查看 ' +
@@ -201,7 +201,7 @@
     if (!el) return;
     if (!list.length) {
       el.innerHTML = '<div class="empty" style="grid-column:1/-1">' +
-        '<span class="emoji">🔍</span><h3>没有找到符合条件的闲置</h3>' +
+        '<h3>没有找到符合条件的闲置</h3>' +
         '<p>换个关键词，或者把筛选条件放宽一点试试</p>' +
         '<button class="btn btn-ghost js-reset-filter">清空筛选条件</button></div>';
       return;
@@ -312,7 +312,7 @@
     const chips = $('#chips');
     chips.innerHTML = '<button class="chip" data-cat="all">全部</button>' +
       CATEGORIES.map(c => '<button class="chip" data-cat="' + c.key + '">' +
-        c.emoji + ' ' + c.name + '</button>').join('');
+        c.name + '</button>').join('');
 
     chips.addEventListener('click', e => {
       const btn = e.target.closest('.chip');
@@ -364,7 +364,7 @@
       $('#resultCount').textContent = list.length;
       $('#catName').textContent = state.cat === 'all' ? '全部闲置' : catOf(state.cat).name;
       $('#listTitle').textContent = state.cat === 'all'
-        ? '全部闲置' : catOf(state.cat).emoji + ' ' + catOf(state.cat).name;
+        ? '全部闲置' : catOf(state.cat).name;
       $('#listSub').textContent = state.kw
         ? '搜索“' + state.kw + '”的结果' : '同校面交 · 免运费 · 支持当面验货';
       document.title = $('#listTitle').textContent + ' - 校易集';
@@ -386,7 +386,7 @@
     /* 9.1 商品不存在时的兜底 */
     if (!p) {
       $('#detailWrap').innerHTML =
-        '<div class="empty"><span class="emoji">📭</span>' +
+        '<div class="empty">' +
         '<h3>这件闲置不见了</h3><p>可能已经被卖掉或者下架了，去看看别的吧</p>' +
         '<a class="btn btn-primary" href="list.html">返回闲置列表</a></div>';
       $('#crumb').innerHTML = '<a href="index.html">首页</a>' +
@@ -410,7 +410,7 @@
           '<div class="p-tags" style="margin-bottom:10px">' +
             '<span class="badge badge-brand">' + cat.name + '</span>' +
             '<span class="badge">' + esc(p.cond) + '</span>' +
-            (p.hot ? '<span class="badge badge-accent">🔥 热门</span>' : '') +
+        (p.hot ? '<span class="badge badge-accent">热门</span>' : '') +
           '</div>' +
           '<h1 class="detail-title">' + esc(p.title) + '</h1>' +
           '<div class="price-box">' +
@@ -427,15 +427,15 @@
           '</ul>' +
           '<div class="desc-box"><h3>卖家描述</h3><p>' + esc(p.desc) + '</p></div>' +
           '<div class="seller-card">' +
-            '<div class="avatar">' + esc(p.seller.emoji) + '</div>' +
+            '<div class="avatar">' + esc(p.seller.name.slice(0, 1)) + '</div>' +
             '<div><div class="name">' + esc(p.seller.name) +
               ' <span class="badge badge-brand">本校认证</span></div>' +
               '<div class="meta">' + esc(p.seller.dept) + '</div></div>' +
           '</div>' +
           '<div class="detail-actions">' +
-            '<button class="btn btn-primary btn-lg" id="btnContact">💬 联系卖家</button>' +
+            '<button class="btn btn-primary btn-lg" id="btnContact">联系卖家</button>' +
             '<button class="btn btn-ghost btn-lg" id="btnFav">' +
-              (isFav(p.id) ? '♥ 已收藏' : '♡ 收藏') + '</button>' +
+              (isFav(p.id) ? '已收藏' : '收藏') + '</button>' +
             '<a class="btn btn-ghost btn-lg" href="list.html' +
               (p.cat ? '?cat=' + p.cat : '') + '">← 返回列表</a>' +
           '</div>' +
@@ -445,7 +445,7 @@
     /* 9.2 收藏按钮 */
     $('#btnFav').addEventListener('click', function () {
       const on = toggleFav(p.id);
-      this.textContent = on ? '♥ 已收藏' : '♡ 收藏';
+      this.textContent = on ? '已收藏' : '收藏';
       toast(on ? '已加入收藏，可在"我的"里查看' : '已取消收藏');
     });
 
@@ -622,7 +622,6 @@
     /* 空状态：收藏为空和发布为空，给的引导不一样 */
     if (!list.length) {
       grid.innerHTML = '<div class="empty" style="grid-column:1/-1">' +
-        '<span class="emoji">' + (isFavTab ? '💛' : '📦') + '</span>' +
         '<h3>' + (isFavTab ? '还没有收藏任何闲置' : '还没有发布过闲置') + '</h3>' +
         '<p>' + (isFavTab ? '在列表页点一下卡片右上角的心形，就会出现在这里'
                           : '宿舍里用不上的东西，写两句就能挂出来') + '</p>' +
