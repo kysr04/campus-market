@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>校易集 · 校园二手交易站</title>
+  <meta name="description" content="校易集是面向本校同学的闲置交换小站：教材书籍、数码电子、生活用品，同校面交，免运费、可当面试用。">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>♻️</text></svg>">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="index">
+
+  <!-- ========== 顶部公告 ========== -->
+  <div class="notice">
+    <div class="container">
+      <span>📣 <b>校园免费交换日</b>：本周六 10:00 图书馆前广场，闲置也能直接当面互换</span>
+      <span class="notice-links">
+        <a href="about.html">关于本站</a>
+        <a href="publish.html">我要发布</a>
+      </span>
+    </div>
+  </div>
+
+  <!-- ========== 头部导航 ========== -->
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="index.html">
+        <span class="brand-logo">易</span>
+        <span>校易集<small>校园二手交易站</small></span>
+      </a>
+      <nav class="main-nav">
+        <a href="index.html">首页</a>
+        <a href="list.html">闲置列表</a>
+        <a href="publish.html">发布闲置</a>
+        <a href="mine.html">我的</a>
+        <a href="about.html">关于</a>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-btn js-theme" title="切换深浅色">🌙</button>
+        <button class="icon-btn nav-toggle" title="展开菜单">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ========== 首屏 ========== -->
+    <div class="container">
+      <section class="hero">
+        <div>
+          <h1>让闲置在校园里<span class="hl">流动起来</span></h1>
+          <p class="lead">
+            毕业带不走的、宿舍里用不上的，都能在这里找到下一个主人。
+            同校同学当面交易，免运费、免包装，还能先验货再付钱。
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary btn-lg" href="list.html">🛍️ 去逛闲置</a>
+            <a class="btn btn-ghost btn-lg" href="publish.html">＋ 免费发布</a>
+          </div>
+          <div class="stats">
+            <div>
+              <div class="num js-count" id="statTotal" data-count="14">0</div>
+              <div class="label">在架闲置（件）</div>
+            </div>
+            <div>
+              <div class="num js-count" data-count="1286">0</div>
+              <div class="label">累计成交（笔）</div>
+            </div>
+            <div>
+              <div class="num js-count" data-count="5">0</div>
+              <div class="label">商品分类（个）</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 轮播图 -->
+        <div class="carousel" id="carousel">
+          <div class="slides">
+            <div class="slide s1">
+              <span class="tag">📚 教材书籍</span>
+              <h3>开学季 · 教材专区</h3>
+              <p>学长学姐用过的课本，半价以下带走，还带笔记</p>
+              <a class="btn btn-sm" href="list.html?cat=book">去看看 →</a>
+            </div>
+            <div class="slide s2">
+              <span class="tag">💻 数码电子</span>
+              <h3>毕业季 · 数码好物</h3>
+              <p>耳机、键盘、音箱，都是还能用很久的东西</p>
+              <a class="btn btn-sm" href="list.html?cat=digital">去看看 →</a>
+            </div>
+            <div class="slide s3">
+              <span class="tag">🧺 生活用品</span>
+              <h3>宿舍焕新 · 生活好物</h3>
+              <p>台灯、收纳箱、保温杯，十几块就能改善生活</p>
+              <a class="btn btn-sm" href="list.html?cat=life">去看看 →</a>
+            </div>
+          </div>
+          <button class="carousel-btn prev" title="上一张">‹</button>
+          <button class="carousel-btn next" title="下一张">›</button>
+          <div class="dots">
+            <button class="active" title="第 1 张"></button>
+            <button title="第 2 张"></button>
+            <button title="第 3 张"></button>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="container page">
+
+      <!-- ========== 分类入口 ========== -->
+      <section class="section">
+        <div class="section-head">
+          <h2>按分类逛</h2>
+          <a class="more" href="list.html">全部闲置 →</a>
+        </div>
+        <div class="cat-grid" id="catGrid"></div>
+      </section>
+
+      <!-- ========== 热门闲置 ========== -->
+      <section class="section">
+        <div class="section-head">
+          <h2>🔥 大家在看的</h2>
+          <a class="more" href="list.html">更多热门 →</a>
+        </div>
+        <div class="card-grid" id="hotGrid"></div>
+      </section>
+
+      <!-- ========== 最新发布 ========== -->
+      <section class="section">
+        <div class="section-head">
+          <h2>🆕 最新发布</h2>
+          <a class="more" href="list.html?sort=newest">查看全部 →</a>
+        </div>
+        <div class="card-grid" id="freshGrid"></div>
+      </section>
+
+      <!-- ========== 使用说明 ========== -->
+      <section class="section">
+        <div class="section-head"><h2>三步完成一次交换</h2></div>
+        <div class="cat-grid">
+          <div class="cat-card"><span class="emoji">🔍</span><span class="name">1. 找到想要的</span><span class="count">按分类浏览或搜索关键词</span></div>
+          <div class="cat-card"><span class="emoji">💬</span><span class="name">2. 联系同学</span><span class="count">在详情页复制对方微信号</span></div>
+          <div class="cat-card"><span class="emoji">🤝</span><span class="name">3. 当面验货</span><span class="count">约在食堂、宿舍楼下交易</span></div>
+          <div class="cat-card"><span class="emoji">♻️</span><span class="name">闲置变回钱</span><span class="count">用不上的一键发布，免费</span></div>
+          <div class="cat-card"><span class="emoji">🛡️</span><span class="name">安全小提示</span><span class="count">校内面交，不要提前转账</span></div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- ========== 页脚 ========== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-about">
+          <a class="brand" href="index.html">
+            <span class="brand-logo">易</span>
+            <span>校易集<small>校园二手交易站</small></span>
+          </a>
+          <p>一个只服务本校同学的闲置交换小站，让课本和旧物继续被用起来。</p>
+          <span class="badge badge-brand">课程作业 · 前端实现</span>
+        </div>
+        <div>
+          <h4>逛一逛</h4>
+          <ul>
+            <li><a href="list.html?cat=book">教材书籍</a></li>
+            <li><a href="list.html?cat=digital">数码电子</a></li>
+            <li><a href="list.html?cat=life">生活用品</a></li>
+            <li><a href="list.html?cat=sport">运动户外</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>常用功能</h4>
+          <ul>
+            <li><a href="list.html">搜索闲置</a></li>
+            <li><a href="publish.html">发布闲置</a></li>
+            <li><a href="mine.html">我的收藏</a></li>
+            <li><a href="mine.html">我的发布</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>帮助</h4>
+          <ul>
+            <li><a href="about.html">关于本站</a></li>
+            <li><a href="about.html#tech">技术说明</a></li>
+            <li><a href="about.html#tips">交易安全提示</a></li>
+            <li><a href="about.html#log">更新日志</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© <span class="js-year">2026</span> 校易集 · 校园二手交易站</span>
+        <span>本站为课程作业演示项目，商品与卖家信息均为虚构</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

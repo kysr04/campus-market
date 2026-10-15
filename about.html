@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>关于本站 - 校易集</title>
+  <meta name="description" content="校易集的建站目的、功能清单、技术实现说明与交易安全提示。">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>♻️</text></svg>">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="about">
+
+  <div class="notice">
+    <div class="container">
+      <span>📄 这一页用来说明<b>建站目的</b>与<b>技术实现</b>，方便老师查看设计思路</span>
+      <span class="notice-links">
+        <a href="#tech">技术说明</a>
+        <a href="#map">评分点对照</a>
+      </span>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="index.html">
+        <span class="brand-logo">易</span>
+        <span>校易集<small>校园二手交易站</small></span>
+      </a>
+      <nav class="main-nav">
+        <a href="index.html">首页</a>
+        <a href="list.html">闲置列表</a>
+        <a href="publish.html">发布闲置</a>
+        <a href="mine.html">我的</a>
+        <a href="about.html">关于</a>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-btn js-theme" title="切换深浅色">🌙</button>
+        <button class="icon-btn nav-toggle" title="展开菜单">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container page">
+
+    <nav class="breadcrumb">
+      <a href="index.html">首页</a>
+      <span class="sep">/</span>
+      <span class="current">关于本站</span>
+    </nav>
+
+    <div class="page-head">
+      <h1>关于「校易集」</h1>
+      <p class="sub">一个校园闲置交换网站 · 纯前端实现 · 无需注册登录</p>
+    </div>
+
+    <!-- 设计目的 -->
+    <section class="section">
+      <div class="section-head"><h2>一、为什么要做这个网站</h2></div>
+      <div class="desc-box">
+        <p>每到学期末和毕业季，宿舍里都会堆起一批用不上又舍不得扔的东西：只翻过几遍的教材、
+          用了一年多的键盘、成色还不错的台灯。</p>
+        <p>它们对原主人已经没用了，对刚开学的同学却刚好需要。问题在于，想找的人不知道东西在哪，
+          想卖的人也不知道该卖给谁——信息卡在这一步，东西就只能被扔掉。</p>
+        <p>「校易集」想解决的就是这一步：<b>把本校同学的闲置集中到一个页面上，让需要的人能搜到、
+          能直接联系、能在食堂门口当面完成交易。</b>不注册、不收费、不用寄快递，
+          这也是它相对二手电商平台最大的好处——同校面交，当场验货，风险最低。</p>
+      </div>
+    </section>
+
+    <!-- 功能清单 -->
+    <section class="section">
+      <div class="section-head"><h2>二、网站包含哪些功能</h2></div>
+      <div class="cat-grid">
+        <div class="cat-card"><span class="emoji">🏠</span><span class="name">首页</span><span class="count">轮播图、分类入口、热门与最新</span></div>
+        <div class="cat-card"><span class="emoji">🔍</span><span class="name">闲置列表</span><span class="count">分类筛选、关键词搜索、四种排序</span></div>
+        <div class="cat-card"><span class="emoji">📄</span><span class="name">商品详情</span><span class="count">成色、地点、卖家信息、同类推荐</span></div>
+        <div class="cat-card"><span class="emoji">📝</span><span class="name">发布闲置</span><span class="count">表单校验、成色选择、自动算折扣</span></div>
+        <div class="cat-card"><span class="emoji">💛</span><span class="name">我的</span><span class="count">收藏与我发布的内容管理</span></div>
+      </div>
+    </section>
+
+    <!-- 技术说明 -->
+    <section class="section" id="tech">
+      <div class="section-head"><h2>三、技术实现说明</h2></div>
+      <div class="desc-box">
+        <p><b>技术栈：</b>HTML5 + CSS3 + 原生 JavaScript（ES6），不使用任何框架和第三方库，
+          也不需要安装环境——双击 <code>index.html</code> 即可在浏览器中运行。</p>
+        <p><b>样式：</b>用 CSS 自定义属性（变量）统一管理配色，一套变量同时驱动浅色与深色两种主题；
+          布局使用 Flex 与 Grid；通过媒体查询适配平板和手机，小屏幕下导航自动收进抽屉菜单。</p>
+        <p><b>交互：</b>商品列表由 JavaScript 动态渲染，支持分类筛选、关键词搜索（输入防抖 200 毫秒）、
+          价格与时间排序；收藏与"我发布的"商品使用浏览器 localStorage 保存，刷新和换页都不会丢。</p>
+        <p><b>表单：</b>发布页面用一张「校验规则表」统一管理六个字段的校验逻辑，
+          输入时实时消除错误提示、失焦时校验，全部通过后才写入数据并跳转。</p>
+        <p><b>文件结构：</b>6 个 HTML 页面 + 1 个公共样式表 + 2 个 JavaScript 文件，
+          所有页面共用同一套头部导航和页脚，保证视觉统一。</p>
+      </div>
+    </section>
+
+    <!-- 评分点对照 -->
+    <section class="section" id="map">
+      <div class="section-head"><h2>四、功能与考核点对照</h2></div>
+      <div class="desc-box" style="overflow-x:auto">
+        <table style="width:100%; border-collapse:collapse; font-size:14.5px">
+          <thead>
+            <tr style="text-align:left; color:var(--text-2)">
+              <th style="padding:9px 10px; border-bottom:1px solid var(--border)">考核点</th>
+              <th style="padding:9px 10px; border-bottom:1px solid var(--border)">本站对应的实现</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding:9px 10px; border-bottom:1px solid var(--border)"><b>设计目的</b></td>
+              <td style="padding:9px 10px; border-bottom:1px solid var(--border)">面向校园闲置交换，解决"东西卖不掉、想要找不到"的问题，全站内容围绕同一主题</td>
+            </tr>
+            <tr>
+              <td style="padding:9px 10px; border-bottom:1px solid var(--border)"><b>跳转</b></td>
+              <td style="padding:9px 10px; border-bottom:1px solid var(--border)">6 个页面互相连通：导航栏、面包屑、分类入口、卡片跳详情、返回列表、页脚链接、返回顶部</td>
+            </tr>
+            <tr>
+              <td style="padding:9px 10px; border-bottom:1px solid var(--border)"><b>交互</b></td>
+              <td style="padding:9px 10px; border-bottom:1px solid var(--border)">轮播图、分类筛选、关键词搜索、排序、只看九成新、收藏、发布表单校验、联系卖家弹窗与复制、深浅色切换、数据本地保存</td>
+            </tr>
+            <tr>
+              <td style="padding:9px 10px; border-bottom:1px solid var(--border)"><b>CSS</b></td>
+              <td style="padding:9px 10px; border-bottom:1px solid var(--border)">变量与主题、Flex/Grid 布局、卡片悬浮动效、渐变封面、卡片依次淡入、响应式媒体查询</td>
+            </tr>
+            <tr>
+              <td style="padding:9px 10px"><b>整体效果</b></td>
+              <td style="padding:9px 10px">统一的青绿色视觉、一致的圆角与阴影规范、每个分类有固定配色、深色模式、空状态提示</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 安全提示 -->
+    <section class="section" id="tips">
+      <div class="section-head"><h2>五、交易安全提示</h2></div>
+      <div class="desc-box">
+        <p>1. 优先选择校内人流密集处当面交易，比如食堂门口、宿舍楼下、图书馆大厅。</p>
+        <p>2. 电子产品务必当面试用，耳机、键盘、音箱都可以现场连接手机测试。</p>
+        <p>3. 不要提前转账、不要扫来源不明的二维码，钱货两清最稳妥。</p>
+        <p>4. 泄露个人隐私的物品（学生证、快递单、含姓名学号的资料）请勿上架。</p>
+      </div>
+    </section>
+
+    <!-- 更新日志 -->
+    <section class="section" id="log">
+      <div class="section-head"><h2>六、更新日志</h2></div>
+      <div class="desc-box">
+        <p><b>v1.0</b>（2026-10-13）：完成 6 个页面、14 件示例商品，实现筛选搜索、收藏、发布与深浅色主题。</p>
+      </div>
+    </section>
+
+    <!-- 作者 -->
+    <section class="section">
+      <div class="section-head"><h2>七、作者与声明</h2></div>
+      <div class="desc-box">
+        <p>课程：Web 前端技术上机作业　|　作者：<span class="badge badge-brand">请在这里填写你的姓名 / 学号 / 班级</span></p>
+        <p>本站为课程作业演示项目，所有商品、卖家、微信号与统计数据均为虚构，不存在真实的交易行为。</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-about">
+          <a class="brand" href="index.html">
+            <span class="brand-logo">易</span>
+            <span>校易集<small>校园二手交易站</small></span>
+          </a>
+          <p>一个只服务本校同学的闲置交换小站，让课本和旧物继续被用起来。</p>
+          <span class="badge badge-brand">课程作业 · 前端实现</span>
+        </div>
+        <div>
+          <h4>逛一逛</h4>
+          <ul>
+            <li><a href="list.html?cat=book">教材书籍</a></li>
+            <li><a href="list.html?cat=digital">数码电子</a></li>
+            <li><a href="list.html?cat=life">生活用品</a></li>
+            <li><a href="list.html?cat=sport">运动户外</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>常用功能</h4>
+          <ul>
+            <li><a href="list.html">搜索闲置</a></li>
+            <li><a href="publish.html">发布闲置</a></li>
+            <li><a href="mine.html">我的收藏</a></li>
+            <li><a href="mine.html">我的发布</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>帮助</h4>
+          <ul>
+            <li><a href="about.html">关于本站</a></li>
+            <li><a href="about.html#tech">技术说明</a></li>
+            <li><a href="about.html#tips">交易安全提示</a></li>
+            <li><a href="about.html#log">更新日志</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© <span class="js-year">2026</span> 校易集 · 校园二手交易站</span>
+        <span>本站为课程作业演示项目，商品与卖家信息均为虚构</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

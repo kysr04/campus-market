@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>我的闲置 - 校易集</title>
+  <meta name="description" content="查看我收藏的闲置和我发布的商品，数据保存在浏览器本地。">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>♻️</text></svg>">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="mine">
+
+  <div class="notice">
+    <div class="container">
+      <span>📌 收藏和我发布的商品都保存在你自己的浏览器里，换一台电脑就看不到了</span>
+      <span class="notice-links">
+        <a href="publish.html">发布新的闲置</a>
+        <a href="list.html">继续逛逛</a>
+      </span>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="index.html">
+        <span class="brand-logo">易</span>
+        <span>校易集<small>校园二手交易站</small></span>
+      </a>
+      <nav class="main-nav">
+        <a href="index.html">首页</a>
+        <a href="list.html">闲置列表</a>
+        <a href="publish.html">发布闲置</a>
+        <a href="mine.html">我的</a>
+        <a href="about.html">关于</a>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-btn js-theme" title="切换深浅色">🌙</button>
+        <button class="icon-btn nav-toggle" title="展开菜单">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container page">
+
+    <nav class="breadcrumb">
+      <a href="index.html">首页</a>
+      <span class="sep">/</span>
+      <span class="current">我的</span>
+    </nav>
+
+    <div class="page-head">
+      <h1>我的闲置</h1>
+      <p class="sub" id="mineTip">共收藏 0 件闲置</p>
+    </div>
+
+    <!-- 标签页切换：收藏 / 我发布的 -->
+    <div class="chips">
+      <button class="chip" data-tab="fav">♥ 我的收藏</button>
+      <button class="chip" data-tab="mine">📦 我发布的</button>
+    </div>
+
+    <div class="card-grid" id="mineGrid"></div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-about">
+          <a class="brand" href="index.html">
+            <span class="brand-logo">易</span>
+            <span>校易集<small>校园二手交易站</small></span>
+          </a>
+          <p>一个只服务本校同学的闲置交换小站，让课本和旧物继续被用起来。</p>
+          <span class="badge badge-brand">课程作业 · 前端实现</span>
+        </div>
+        <div>
+          <h4>逛一逛</h4>
+          <ul>
+            <li><a href="list.html?cat=book">教材书籍</a></li>
+            <li><a href="list.html?cat=digital">数码电子</a></li>
+            <li><a href="list.html?cat=life">生活用品</a></li>
+            <li><a href="list.html?cat=sport">运动户外</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>常用功能</h4>
+          <ul>
+            <li><a href="list.html">搜索闲置</a></li>
+            <li><a href="publish.html">发布闲置</a></li>
+            <li><a href="mine.html">我的收藏</a></li>
+            <li><a href="mine.html">我的发布</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>帮助</h4>
+          <ul>
+            <li><a href="about.html">关于本站</a></li>
+            <li><a href="about.html#tech">技术说明</a></li>
+            <li><a href="about.html#tips">交易安全提示</a></li>
+            <li><a href="about.html#log">更新日志</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© <span class="js-year">2026</span> 校易集 · 校园二手交易站</span>
+        <span>本站为课程作业演示项目，商品与卖家信息均为虚构</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

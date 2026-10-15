@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>发布闲置 - 校易集</title>
+  <meta name="description" content="填写商品信息即可免费发布闲置，带有完整的前端表单校验。">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>♻️</text></svg>">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="publish">
+
+  <div class="notice">
+    <div class="container">
+      <span>📣 <b>发布小贴士</b>：写清楚瑕疵和交易地点，成交快一倍</span>
+      <span class="notice-links">
+        <a href="mine.html">我的闲置</a>
+        <a href="list.html">闲置列表</a>
+      </span>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="index.html">
+        <span class="brand-logo">易</span>
+        <span>校易集<small>校园二手交易站</small></span>
+      </a>
+      <nav class="main-nav">
+        <a href="index.html">首页</a>
+        <a href="list.html">闲置列表</a>
+        <a href="publish.html">发布闲置</a>
+        <a href="mine.html">我的</a>
+        <a href="about.html">关于</a>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-btn js-theme" title="切换深浅色">🌙</button>
+        <button class="icon-btn nav-toggle" title="展开菜单">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container page">
+
+    <nav class="breadcrumb">
+      <a href="index.html">首页</a>
+      <span class="sep">/</span>
+      <span class="current">发布闲置</span>
+    </nav>
+
+    <div class="page-head">
+      <h1>发布一件闲置</h1>
+      <p class="sub">带 <span style="color:#f43f5e">*</span> 的是必填项。信息填得越具体，越容易约到人。</p>
+    </div>
+
+    <form class="form-card" id="publishForm" novalidate>
+
+      <div class="form-row">
+        <label for="title">商品标题 <span class="req">*</span></label>
+        <input class="input" id="title" name="title" placeholder="例如：高等数学（同济第七版）上下册" maxlength="30">
+        <p class="error-msg"></p>
+        <p class="hint">建议写成「书名 / 型号 + 关键信息」，4—30 个字</p>
+      </div>
+
+      <div class="form-row" id="catRow">
+        <label>商品分类 <span class="req">*</span></label>
+        <div class="radio-group">
+          <label><input type="radio" name="cat" value="book"> 📚 教材书籍</label>
+          <label><input type="radio" name="cat" value="digital"> 💻 数码电子</label>
+          <label><input type="radio" name="cat" value="life"> 🧺 生活用品</label>
+          <label><input type="radio" name="cat" value="sport"> 🏀 运动户外</label>
+          <label><input type="radio" name="cat" value="misc"> 🎁 其他好物</label>
+        </div>
+        <p class="error-msg">请选择一个分类</p>
+      </div>
+
+      <div class="form-grid-2">
+        <div class="form-row">
+          <label for="price">出售价格（元） <span class="req">*</span></label>
+          <input class="input" id="price" name="price" type="number" min="0" step="0.01" placeholder="25">
+          <p class="error-msg"></p>
+        </div>
+        <div class="form-row">
+          <label for="origin">原价（选填）</label>
+          <input class="input" id="origin" name="origin" type="number" min="0" step="0.01" placeholder="68">
+          <p class="error-msg"></p>
+          <p class="hint">填了原价，页面会自动帮你算出省了多少钱</p>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <label>成色</label>
+        <div class="radio-group" id="condGroup"></div>
+      </div>
+
+      <div class="form-row">
+        <label for="campus">交易地点 <span class="req">*</span></label>
+        <input class="input" id="campus" name="campus" placeholder="例如：东校区 · 学一食堂门口" maxlength="40">
+        <p class="error-msg"></p>
+        <p class="hint">尽量写具体的楼栋或食堂，方便对方判断距离</p>
+      </div>
+
+      <div class="form-row">
+        <label for="desc">详细描述 <span class="req">*</span></label>
+        <textarea class="textarea" id="desc" name="desc" placeholder="写清楚使用时间、有没有笔记或磕碰、配件是否齐全，以及为什么出售。"></textarea>
+        <p class="error-msg"></p>
+        <p class="hint">至少 10 个字，已输入 <span id="descCount">0 字</span></p>
+      </div>
+
+      <div class="form-row">
+        <label for="wechat">联系微信号 <span class="req">*</span></label>
+        <input class="input" id="wechat" name="wechat" placeholder="只对收藏了你商品的同校同学可见" maxlength="20">
+        <p class="error-msg"></p>
+        <p class="hint">6—20 位字母、数字或下划线。演示项目不会真的上传，只存在你自己的浏览器里</p>
+      </div>
+
+      <div class="form-actions">
+        <button class="btn btn-primary btn-lg" type="submit">🚀 立即发布</button>
+        <button class="btn btn-ghost btn-lg" type="reset">重填</button>
+      </div>
+    </form>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-about">
+          <a class="brand" href="index.html">
+            <span class="brand-logo">易</span>
+            <span>校易集<small>校园二手交易站</small></span>
+          </a>
+          <p>一个只服务本校同学的闲置交换小站，让课本和旧物继续被用起来。</p>
+          <span class="badge badge-brand">课程作业 · 前端实现</span>
+        </div>
+        <div>
+          <h4>逛一逛</h4>
+          <ul>
+            <li><a href="list.html?cat=book">教材书籍</a></li>
+            <li><a href="list.html?cat=digital">数码电子</a></li>
+            <li><a href="list.html?cat=life">生活用品</a></li>
+            <li><a href="list.html?cat=sport">运动户外</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>常用功能</h4>
+          <ul>
+            <li><a href="list.html">搜索闲置</a></li>
+            <li><a href="publish.html">发布闲置</a></li>
+            <li><a href="mine.html">我的收藏</a></li>
+            <li><a href="mine.html">我的发布</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>帮助</h4>
+          <ul>
+            <li><a href="about.html">关于本站</a></li>
+            <li><a href="about.html#tech">技术说明</a></li>
+            <li><a href="about.html#tips">交易安全提示</a></li>
+            <li><a href="about.html#log">更新日志</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© <span class="js-year">2026</span> 校易集 · 校园二手交易站</span>
+        <span>本站为课程作业演示项目，商品与卖家信息均为虚构</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
